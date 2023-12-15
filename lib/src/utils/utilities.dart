@@ -1,0 +1,1 @@
+// Funciones de ayuda que puedes necesitar en todo tu proyecto.

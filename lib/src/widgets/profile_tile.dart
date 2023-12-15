@@ -1,0 +1,1 @@
+// Widget para mostrar los detalles de perfil en la lista.
