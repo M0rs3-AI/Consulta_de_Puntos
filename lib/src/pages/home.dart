@@ -1,4 +1,4 @@
-import 'package:consulta_de_puntos/src/models/auth_state.dart';
+import 'package:consulta_de_puntos/src/models/state.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen>{
 
   @override
   Widget build(BuildContext context) {
-    final authState = Provider.of<AuthState>(context);
+    final authState = Provider.of<States>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(Config.homeName),

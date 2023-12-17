@@ -12,13 +12,14 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      cedula: json['cedula'],
-      name: json['name'],
-      email: json['email'],
-      direccion: json['direccion'],
-      telefono: json['telefono'],
-      puntos: json['puntos'],
-      contrasena: json['contrasena'],
+      cedula: json['Cedula'],
+      name: json['Nombre'],
+      email: json['Correo'],
+      direccion: json['Direccion'],
+      telefono: json['Telefono1'],
+      puntos: json['Puntos'] ?? '0',
+      contrasena: json['Password'],
     );
   }
 }
+

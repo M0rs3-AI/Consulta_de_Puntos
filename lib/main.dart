@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:consulta_de_puntos/src/pages/home.dart';
 import 'package:consulta_de_puntos/src/utils/constants.dart';
-import 'package:consulta_de_puntos/src/models/auth_state.dart';
+import 'package:consulta_de_puntos/src/models/state.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main(){
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AuthState(),
+      create: (context) => States(),
       child: const MyApp(),
     ),
   );

@@ -1,10 +1,10 @@
+import 'package:consulta_de_puntos/src/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:consulta_de_puntos/main.dart';
-import 'package:consulta_de_puntos/src/models/auth_state.dart';
-import 'package:consulta_de_puntos/src/services/auth_service.dart';
+import 'package:consulta_de_puntos/src/models/state.dart';
+import 'package:consulta_de_puntos/src/services/api_service.dart';
 import 'package:consulta_de_puntos/src/pages/home.dart';
-import 'register.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -13,21 +13,22 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   void _showRecoverPasswordDialog(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  const Text('Recuperar Contraseña'),
-          content: const Column(
+          title:  const Text('Recuperar Contraseña'), 
+          content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Ingrese su email y le enviaremos su nueva contraseña'),
+              const Text('Ingrese su email y le enviaremos su nueva contraseña'),
               TextField(
-                decoration: InputDecoration(
+                controller: emailController,
+                decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                // Asegúrate de incluir validación y manejo de errores
               ),
             ],
           ),
@@ -40,8 +41,13 @@ class LoginPage extends StatelessWidget {
             ),
             TextButton(
               child: const Text('Recuperar'),
-              onPressed: () {
-                // Lógica para recuperar contraseña
+              onPressed: () async {
+                final email = emailController.text;
+                // Puedes usar tu instancia de ApiService para enviar la solicitud
+                final success = await ApiService().recoverPassword(email);
+                if (success) {
+                } else {
+                }
               },
             ),
           ],
@@ -89,27 +95,16 @@ class LoginPage extends StatelessWidget {
                 String cedula = _cedulaController.text;
                 String password = _passwordController.text;
                 // Llamar al servicio de autenticación
-                bool loggedIn = await AuthService().login(cedula, password);
-                if (loggedIn) {
+                User? user = await ApiService().login(cedula, password);
+                if (user != null) {
                 /// Navegar a la pantalla principal si la autenticación es exitosa
-                  final authState = Provider.of<AuthState>(context, listen: false);
-                  authState.isLoggedIn = true;
+                  final authState = Provider.of<States>(context, listen: false);
+                  authState.login(user);
                   navigatorKey.currentState!.pushReplacement(
                     MaterialPageRoute(builder: (context) => const HomeScreen()),
                   );
                 } else {
-                  // Mostrar mensaje de error
-                  // ...
                 }
-              },
-            ),
-            TextButton(
-              child: const Text('Regístrate aquí'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
               },
             ),
             TextButton(
