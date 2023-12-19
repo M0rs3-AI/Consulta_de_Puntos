@@ -33,6 +33,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value!.contains(' ')) {
+                    return 'No puede contener espacios';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 controller: _direccionController,
@@ -41,6 +47,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
               TextFormField(
                 controller: _telefonoController,
                 decoration: const InputDecoration(labelText: 'Teléfono'),
+                validator: (value) {
+                  if (value!.contains(' ')) {
+                    return 'No puede contener espacios';
+                  }
+                  return null;
+                },
               ),
               const Spacer(),
               ElevatedButton(

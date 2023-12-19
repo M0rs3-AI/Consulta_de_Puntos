@@ -24,20 +24,47 @@ class MorePage extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextFormField(
                 controller: currentPasswordController,
                 decoration: const InputDecoration(labelText: 'Contraseña Actual',),
                 obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingrese una contraseña';
+                  }
+                  if (value.contains(' ')) {
+                    return 'La contraseña no puede contener espacios';
+                  }
+                  return null;
+                },
               ),
-              TextField(
+              TextFormField(
                 controller: newPasswordController,
                 decoration: const InputDecoration(labelText: 'Contraseña Nueva',),
                 obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingrese una contraseña';
+                  }
+                  if (value.contains(' ')) {
+                    return 'La contraseña no puede contener espacios';
+                  }
+                  return null;
+                },
               ),
-              TextField(
+              TextFormField(
                 controller: confirmNewPasswordController,
                 decoration: const InputDecoration(labelText: 'Confirmar Contraseña',),
                 obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingrese una contraseña';
+                  }
+                  if (value.contains(' ')) {
+                    return 'La contraseña no puede contener espacios';
+                  }
+                  return null;
+                },
               ),
             ],
           ),

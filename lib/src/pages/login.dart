@@ -36,14 +36,13 @@ class LoginPage extends StatelessWidget {
             TextButton(
               child: const Text('Cancelar'),
               onPressed: () {
-                Navigator.of(context).pop(); // Cierra el diálogo
+                Navigator.of(context).pop();
               },
             ),
             TextButton(
               child: const Text('Recuperar'),
               onPressed: () async {
                 final email = emailController.text;
-                // Puedes usar tu instancia de ApiService para enviar la solicitud
                 final success = await ApiService().recoverPassword(email);
                 if (success) {
                 } else {
@@ -68,24 +67,40 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TextField(
+            TextFormField(
               controller: _cedulaController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Cédula',
                 prefixIcon: Icon(Icons.credit_card),
               ),
-              // Asegúrate de incluir validación y manejo de errores
+              validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingrese su cedula';
+                  }
+                  if (value.contains(' ')) {
+                    return 'No puede contener espacios';
+                  }
+                  return null;
+                },
             ),
             const SizedBox(height: 20),
-            TextField(
+            TextFormField(
               controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Contraseña',
                 prefixIcon: Icon(Icons.lock),
               ),
-              // Asegúrate de incluir validación y manejo de errores
+              validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, ingrese una contraseña';
+                  }
+                  if (value.contains(' ')) {
+                    return 'La contraseña no puede contener espacios';
+                  }
+                  return null;
+                },
             ),
             const SizedBox(height: 20),
             ElevatedButton(
